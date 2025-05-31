@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visa Application Form</title>
+</head>
+<body>
+    <h1>Visa Application Form</h1>
+    <form action="/submit" method="POST">
+        <label for="full_name">Full Name:</label>
+        <input type="text" id="full_name" name="full_name" required><br><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required><br><br>
+
+        <label for="visa_type">Visa Type:</label>
+        <select id="visa_type" name="visa_type">
+            <option value="Global Talent">Global Talent</option>
+            <option value="PSW">PSW</option>
+            <option value="Student">Student</option>
+            <option value="Skilled Worker">Skilled Worker</option>
+        </select><br><br>
+
+        <label for="application_date">Application Date:</label>
+        <input type="date" id="application_date" name="application_date"><br><br>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
