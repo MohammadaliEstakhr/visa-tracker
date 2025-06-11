@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="mb-4">Dashboard Overview</h2>
+
+<div class="row">
+  <div class="col-md-4">
+    <canvas id="visaTypeChart"></canvas>
+  </div>
+  <div class="col-md-4">
+    <canvas id="statusChart"></canvas>
+  </div>
+  <div class="col-md-4">
+    <canvas id="monthlyChart"></canvas>
+  </div>
+</div>
+
+<p class="mt-5 text-muted">Last updated: {{ datetime }}</p>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const visaTypeData = {{ visa_type_data|safe }};
+  const statusData = {{ status_data|safe }};
+  const monthlyData = {{ monthly_data|safe }};
+
+  new Chart(document.getElementById('visaTypeChart'), {
+    type: 'pie',
+    data: {
+      labels: visaTypeData.map(d => d.visa_type),
+      datasets: [{
+        label: 'Visa Types',
+        data: visaTypeData.map(d => d.count),
+        borderWidth: 1
+      }]
+    }
+  });
+
+  new Chart(document.getElementById('statusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: statusData.map(d => d.status),
+      datasets: [{
+        label: 'Statuses',
+        data: statusData.map(d => d.count),
+        borderWidth: 1
+      }]
+    }
+  });
+
+  new Chart(document.getElementById('monthlyChart'), {
+    type: 'bar',
+    data: {
+      labels: monthlyData.map(d => d.month),
+      datasets: [{
+        label: 'Applications Per Month',
+        data: monthlyData.map(d => d.count),
+        borderWidth: 1
+      }]
+    }
+  });
+</script>
+{% endblock %}
