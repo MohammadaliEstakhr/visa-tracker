@@ -11,11 +11,12 @@ from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.contrib.auth.decorators import login_required
 
-# نمایش همه درخواست‌ها
+# View to display all visa applications with optional search and filter
 @login_required
 def all_applications(request):
     applications = VisaApplication.objects.all()
 
+    # Handle search query
     search_query = request.GET.get('search')
     status_filter = request.GET.get('status')
 
@@ -27,7 +28,7 @@ def all_applications(request):
 
     return render(request, 'all_applications.html', {'applications': applications})
 
-# ثبت درخواست جدید
+# View to handle submission of a new visa application
 @login_required
 def submit_application(request):
     if request.method == 'POST':
@@ -40,7 +41,7 @@ def submit_application(request):
         form = VisaApplicationForm()
     return render(request, 'submit_application.html', {'form': form})
 
-# خروجی PDF
+# Export all applications as a downloadable PDF file
 @login_required
 def export_applications_pdf(request):
     applications = VisaApplication.objects.all()
@@ -53,7 +54,7 @@ def export_applications_pdf(request):
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-# خروجی CSV
+# Export all applications as a downloadable CSV file
 @login_required
 def export_applications_csv(request):
     applications = VisaApplication.objects.all()
@@ -65,19 +66,23 @@ def export_applications_csv(request):
         writer.writerow([app.applicant_name, app.visa_type, app.submission_date, app.status])
     return response
 
-# داشبورد با نمودار
+# Generate and render the dashboard with statistics and visual data
 @login_required
 def dashboard_view(request):
     current_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+    # Aggregate visa type counts
     visa_type_data = VisaApplication.objects.values('visa_type').annotate(count=Count('id'))
+
+    # Aggregate application status counts
     status_data = VisaApplication.objects.values('status').annotate(count=Count('id'))
 
+    # Monthly submission count data
     monthly_data = VisaApplication.objects.annotate(
         month=TruncMonth('submission_date')
     ).values('month').annotate(count=Count('id')).order_by('month')
 
-    # تبدیل تاریخ‌ها به رشته برای نمایش در JS
+    # Format month data for frontend display
     monthly_data = [
         {'month': item['month'].strftime('%Y-%m-%d'), 'count': item['count']}
         for item in monthly_data
