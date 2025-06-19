@@ -1,0 +1,6 @@
+Django==5.1
+djangorestframework==3.16.0
+django-allauth==0.59.0
+drf-yasg==1.21.10
+reportlab==4.1.0
+pytz==2025.1
