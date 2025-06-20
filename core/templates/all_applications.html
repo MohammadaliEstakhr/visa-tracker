@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h2 class="mb-3">All Visa Applications</h2>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-md-4">
+        <input type="text" name="search" class="form-control" placeholder="Search by applicant or type" value="{{ request.GET.search }}">
+    </div>
+    <div class="col-md-3">
+        <select name="status" class="form-select">
+            <option value="">All Statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<div class="mb-3">
+    <a href="{% url 'export_pdf' %}" class="btn btn-outline-danger me-2">Export PDF</a>
+    <a href="{% url 'export_csv' %}" class="btn btn-outline-success">Export CSV</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Applicant</th>
+            <th>Visa Type</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for app in applications %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ app.applicant_name }}</td>
+            <td>{{ app.visa_type }}</td>
+            <td>{{ app.submission_date }}</td>
+            <td>{{ app.status }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No applications found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
