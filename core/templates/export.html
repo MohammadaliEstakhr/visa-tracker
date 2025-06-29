@@ -1,0 +1,12 @@
+<!-- core/templates/export.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Export Visa Applications</h2>
+    <div class="d-flex gap-3">
+        <a href="{% url 'export_pdf' %}" class="btn btn-danger">Export as PDF</a>
+        <a href="{% url 'export_csv' %}" class="btn btn-success">Export as CSV</a>
+    </div>
+</div>
+{% endblock %}
