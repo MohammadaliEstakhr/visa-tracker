@@ -36,9 +36,13 @@ This project was developed to showcase professional, scalable, and testable arch
 
 ---
 
-## 📸 Screenshot
+## 📊 Dashboard Screenshot
 
-![Dashboard Screenshot](https://user-images.githubusercontent.com/your-image-url/dashboard.png)
+Here is a visual example of the Visa Tracker dashboard, showcasing the status of visa applications with an interactive graph and filtering features.
+
+[📷Dashboard Screenshot](https://raw.githubusercontent.com/MohammadaliEstakhr/visa-tracker/main/visa_tracker/static/images/dashboard.png)
+
+
 
 ---
 
