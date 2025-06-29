@@ -39,3 +39,4 @@ __pycache__/
 .vscode/
 env/
 core/.env
+env

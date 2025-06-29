@@ -1,0 +1,1 @@
+# App configuration for the 'core' Django app

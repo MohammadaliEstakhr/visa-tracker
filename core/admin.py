@@ -1,0 +1,1 @@
+# Django admin site configuration for VisaApplication model
